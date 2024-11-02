@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "lib": ["ES6", "dom"],
+    "noImplicitAny": true,
+    // 其他配置选项
+  },
+  "include": [
+    "src/**/**/*"
+  ],
+}
