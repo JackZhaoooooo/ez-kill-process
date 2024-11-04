@@ -13,7 +13,7 @@ window.exports = {
 			// 用户选择列表中某个条目时被调用
 			select: onSelect,
 			// 子输入框为空时的占位符，默认为字符串"搜索"
-			placeholder: '搜索',
+			placeholder: '输入端口，出现列表后回车即可关闭进程',
 		},
 	},
 }
