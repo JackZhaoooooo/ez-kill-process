@@ -5,7 +5,7 @@ export function getProcessOnPort(
 		const platform = window.os.platform()
 		let command: string
 
-		if (window.utools.isWindows) {
+		if (window.utools.isWindows()) {
 			command = `netstat -ano | findstr :${port}`
 		} else {
 			command = `lsof -i :${port} | grep LISTEN | awk '{print $2}'`
@@ -23,7 +23,7 @@ export function getProcessOnPort(
 			}
 
 			let pid: string | undefined
-			if (window.utools.isWindows) {
+			if (window.utools.isWindows()) {
 				const lines = stdout.trim().split('\n')
 				if (lines.length > 0) {
 					const parts = lines[0].trim().split(/\s+/)
@@ -47,7 +47,7 @@ export function killProcess(pid: string): Promise<void> {
 		const platform = window.os.platform()
 		let command: string
 
-		if (window.utools.isWindows) {
+		if (window.utools.isWindows()) {
 			command = `taskkill /F /PID ${pid}`
 		} else {
 			command = `kill -9 ${pid}`

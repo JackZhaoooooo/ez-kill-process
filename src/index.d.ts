@@ -16,8 +16,8 @@ declare global {
 		utools: {
 			/** 关闭主要窗口 */
 			hideMainWindow: () => void
-			isMacOS: boolean
-			isWindows: boolean
+			isMacOS: () => boolean
+			isWindows: () => boolean
 			/** 显示通知 */
 			showNotification: (body: string) => void
 			/** 退出插件 */
