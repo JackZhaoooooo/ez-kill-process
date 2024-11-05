@@ -1,6 +1,10 @@
 {
   "logo": "logo.png",
   "preload": "preload.js",
+  "platform": [
+    "win32",
+    "darwin"
+  ],
   "features": [
     {
       "code": "kill",

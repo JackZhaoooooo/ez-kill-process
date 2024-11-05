@@ -2,7 +2,6 @@ const { onSearch, onSelect } = require('./main.js')
 
 window.child_process = require('child_process')
 window.os = require('os')
-console.log('11', require('electron'))
 
 window.exports = {
 	'kill': {
