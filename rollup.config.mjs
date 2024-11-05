@@ -9,10 +9,12 @@ export default {
 		file: 'dist/main.js',
 		format: 'cjs',
 		sourcemap: false,
+		generatedCode: 'es2015',
 	},
 	plugins: [
-		typescript(),
-		terser(),
+		typescript({
+			target: 'ES2017',
+		}),
 		del({ targets: 'dist/*' }),
 		copy({
 			targets: [{ src: 'src/static/*', dest: 'dist/' }],

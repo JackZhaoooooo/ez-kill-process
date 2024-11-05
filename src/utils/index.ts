@@ -2,7 +2,6 @@ export function getProcessOnPort(
 	port: string,
 ): Promise<{ pid: string; stdout: string }> {
 	return new Promise((resolve, reject) => {
-		const platform = window.os.platform()
 		let command: string
 
 		if (window.utools.isWindows()) {
@@ -44,7 +43,6 @@ export function getProcessOnPort(
 
 export function killProcess(pid: string): Promise<void> {
 	return new Promise((resolve, reject) => {
-		const platform = window.os.platform()
 		let command: string
 
 		if (window.utools.isWindows()) {

@@ -1,56 +1,54 @@
 import { getProcessOnPort, killProcess } from './utils'
 
-export const onSearch: IKill.ON_SEARCH = async (
+export const onSearch: IKill.ON_SEARCH = (
 	action,
 	searchWord,
 	callbackSetList,
 ) => {
-	try {
-		callbackSetList([])
-		if (!searchWord) {
-			return
-		}
-		const { pid, stdout } = await getProcessOnPort(searchWord)
-		if (!Number(pid)) {
-			callbackSetList([])
-			return
-		}
-		callbackSetList([
-			{
-				title: `找到进程:${pid}`,
-				pid,
-			},
-		])
-	} catch (error) {
-		console.log('error', error)
-		callbackSetList([])
+	callbackSetList([])
+	if (!searchWord) {
+		return
 	}
-}
-
-export const onSelect: IKill.ON_SELECT = async (
-	action,
-	item,
-	callbackSetList,
-) => {
-	try {
-		if (!item?.pid) {
+	getProcessOnPort(searchWord)
+		.then(({ pid, stdout }) => {
+			if (!Number(pid)) {
+				callbackSetList([])
+				return
+			}
 			callbackSetList([
 				{
-					title: '暂无服务可关闭',
+					title: `找到进程:${pid}`,
+					pid,
 				},
 			])
-			return
-		}
-		await killProcess(item.pid)
-		window.utools.showNotification('服务关闭成功')
-		window.utools.outPlugin()
-		window.utools.hideMainWindow()
-	} catch (error) {
-		console.log('error', error)
+		})
+		.catch((error) => {
+			console.log('error', error)
+			callbackSetList([])
+		})
+}
+
+export const onSelect: IKill.ON_SELECT = (action, item, callbackSetList) => {
+	if (!item?.pid) {
 		callbackSetList([
 			{
-				title: '服务关闭失败',
+				title: '暂无服务可关闭',
 			},
 		])
+		return
 	}
+	killProcess(item.pid)
+		.then(() => {
+			window.utools.showNotification('服务关闭成功')
+			window.utools.outPlugin()
+			window.utools.hideMainWindow()
+		})
+		.catch((error) => {
+			console.log('error', error)
+			callbackSetList([
+				{
+					title: '服务关闭失败',
+				},
+			])
+		})
 }
